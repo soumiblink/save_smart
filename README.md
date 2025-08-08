@@ -1,110 +1,90 @@
-#  Link Saver + AI Summary  
-**Bookmarks with a Brain — Save, Summarize, Search.**
+# 🔗 Link Saver + AI Summary  
+**Smart Bookmarks with Instant Summaries**
 
-A modern full-stack bookmarking tool that lets users save links and view automatic AI-generated summaries using [Jina AI](https://jina.ai/). Built with **React**, **TypeScript**, and **Supabase** for rapid prototyping, responsive UX, and secure authentication.
-
----
-
-##  Screenshots
-
-![Sign In](public/1..png) 
-*Sign in/sign out with Supabase Auth*
-
-![Homepage](public/2..png)  
-*Bookmark dashboard with summaries*
-
-![Dark Mode](public/3..png)  
-*Dark mode with filters and summaries*
+A modern full-stack bookmarking app that lets users save links and instantly generate AI-powered summaries using [Jina AI](https://jina.ai/). Built with **React**, **TypeScript**, and **Supabase** for blazing-fast performance and secure auth.
 
 ---
 
-##  Features
+## 📸 Preview
 
-###  User Authentication  
-- Email/password sign-up & login  
-- Passwords hashed using Supabase Auth (uses bcrypt internally)  
-- JWT-based session management  
-- Fully protected routes and user-specific bookmark storage
-
-###  Smart Bookmarking  
-- Paste any URL → auto-extracts title + favicon  
-- Summarizes webpage content using **Jina AI’s open API**  
-- Bookmarks stored with metadata and summary  
-- Delete individual bookmarks  
-- Tag-based organization and filtering
-
-###  Modern UI/UX  
-- Responsive, accessible, and clean UI  
-- Dark mode toggle  
-- Smooth transitions and empty/loading/error states  
-- Section highlighting in summaries  
-- Grid layout with hover interactions
-
-###  Extra Features  
-- Tag filtering system  
-- URL validation and error handling  
-- Expandable summaries  
-- React error boundary for reliability
+| Sign In | Dashboard | Dark Mode |
+|--------|------------|-----------|
+| ![](public/1.png) | ![](public/2.png) | ![](public/3.png) |
 
 ---
 
-##  Tech Stack
+## ✨ Features
 
-###  Frontend
-- **React 18** + **TypeScript**
-- **Tailwind CSS** for rapid styling
-- **Vite** for blazing-fast dev builds
-- **React Router** for routing
-- **Lucide React** for icons
-- **React Hook Form** for validation
+### 🔐 Authentication
+- Email/password login via **Supabase Auth**
+- Secure JWT-based session management
+- Route protection & user-specific data storage
 
-###  Backend & Storage
-- **Supabase** for Auth & PostgreSQL DB  
-- **Row Level Security** for user-specific data  
-- **Jina AI** for content summarization
+### 🧠 Smart Bookmarking
+- Auto-fetch title + favicon from URL
+- AI summary via **Jina AI API**
+- Bookmark CRUD with metadata & tags
+- Tag-based filtering & search
 
-###  Testing
-- **Vitest** for unit testing  
-- **React Testing Library**  
-- **Jest DOM** for DOM assertions  
-
----
-
-##  Getting Started
-
-### 1. Clone and Install
-```bash
-git clone https://github.com/yourusername/link-saver.git
-cd link-saver
-npm install
-```
-
-### 2. Environment Setup
-```env
-VITE_SUPABASE_URL=your_supabase_url
-VITE_SUPABASE_ANON_KEY=your_anon_key
-```
-
-### 3. Run in Development
-```bash
-npm run dev
-```
-
-### 4. Run Tests
-```bash
-npm run test
-```
-
-### 5. Build for Production
-```bash
-npm run build
-```
+### 💡 Modern UX
+- Responsive UI with **Tailwind CSS**
+- Dark mode toggle
+- Smooth transitions & loading states
+- Expandable AI summaries
+- Grid layout with hover effects
 
 ---
 
-##  Sample Tests
+## 🧰 Tech Stack
 
-Example: `BookmarkForm.test.tsx`
+### Frontend  
+- **React 18 + TypeScript**  
+- **Tailwind CSS**, **Vite**, **React Router**  
+- **Lucide Icons**, **React Hook Form**
+
+### Backend & Services  
+- **Supabase** (Auth + PostgreSQL + RLS)  
+- **Jina AI API** for summarization
+
+### Testing  
+- **Vitest**, **React Testing Library**, **Jest DOM**
+
+---
+
+## 🚀 Getting Started
+
+1. **Clone & Install**
+   ```bash
+   git clone https://github.com/yourusername/link-saver.git
+   cd link-saver
+   npm install
+   ```
+
+2. **Add Env Variables**
+   ```env
+   VITE_SUPABASE_URL=your_supabase_url
+   VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+   ```
+
+3. **Start Dev Server**
+   ```bash
+   npm run dev
+   ```
+
+4. **Run Tests**
+   ```bash
+   npm run test
+   ```
+
+5. **Build**
+   ```bash
+   npm run build
+   ```
+
+---
+
+## ✅ Sample Test
+
 ```tsx
 describe('BookmarkForm', () => {
   it('validates required URL field', async () => {
@@ -115,47 +95,31 @@ describe('BookmarkForm', () => {
 });
 ```
 
-Components tested:
-- `BookmarkForm`
-- `BookmarkItem`
-- `Button`
-- `TagFilter`
+---
+
+## 🛠 Planned Features
+
+- 🔖 Folders, nested tags, custom sorting  
+- 🔁 Share bookmarks, import/export (JSON, CSV)  
+- 🔎 Full-text search, reading time estimates  
+- ⚡ Infinite scroll, virtual rendering  
+- 🧩 Browser extension, bulk actions, keyboard shortcuts  
 
 ---
 
-##  Future Improvements
+## ⏱ Dev Time
 
-### Organizational
-- Folder support  
-- Nested tags  
-- Custom sorting (recent, alphabetical, etc.)
-
-### Feature Additions
-- Bookmark sharing  
-- Full-text search  
-- Reading time estimates  
-- Browser extension for 1-click saves
-
-### Performance
-- Infinite scroll  
-- Virtual list rendering  
-- Image & favicon optimization
-
-### UX Polish
-- Theme customization  
-- Keyboard shortcuts  
-- Bulk actions (delete, tag)  
-- Import/export bookmarks (JSON, CSV)
+| Task                   | Duration |
+|------------------------|----------|
+| Auth & setup           | 1 hr     |
+| Bookmark logic & AI    | 3 hrs    |
+| UI & styling           | 1 hr     |
+| Testing                | 1 hr     |
+| Docs & cleanup         | 0.5 hr   |
+| **Total**              | **6.5 hrs** |
 
 ---
 
-##  Development Time
+## 📄 License
 
-| Task                          | Time |
-|------------------------------|------|
-| Initial setup & auth         | 1 hr |
-| Bookmark CRUD + summarization| 2 hrs |
-| UI components & styling      | 1.5 hrs |
-| Testing                      | 1 hr |
-| Docs + polish                | 0.5 hr |
-| **Total**                    | **6 hrs** |
+[MIT](LICENSE)
