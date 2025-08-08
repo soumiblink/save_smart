@@ -1,0 +1,239 @@
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
+import Button from '../ui/Button';
+import Input from '../ui/Input';
+import { 
+  Mail, 
+  Lock, 
+  AlertCircle, 
+  ArrowRight,
+  Sparkles,
+  Eye,
+  EyeOff
+} from 'lucide-react';
+
+interface LoginFormData {
+  email: string;
+  password: string;
+}
+
+const Login: React.FC = () => {
+  const { signIn } = useAuth();
+  const navigate = useNavigate();
+  const [loginError, setLoginError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LoginFormData>();
+
+  const onSubmit = async (data: LoginFormData) => {
+    try {
+      setLoginError(null);
+      await signIn(data.email, data.password);
+      navigate('/dashboard');
+    } catch (error: any) {
+      setLoginError('Invalid email or password. Please check your credentials and try again.');
+      console.error('Login error:', error);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 transition-colors duration-300 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      
+      {/* Background Effects */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/4 -left-40 w-80 h-80 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob dark:opacity-10"></div>
+        <div className="absolute top-1/3 -right-40 w-80 h-80 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000 dark:opacity-10"></div>
+        <div className="absolute bottom-1/4 left-1/3 w-80 h-80 bg-gradient-to-r from-indigo-400 to-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000 dark:opacity-10"></div>
+      </div>
+
+      <div className="relative max-w-md w-full">
+        {/* Main Card */}
+        <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+          
+          {/* Header */}
+          <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 px-8 py-12 text-center">
+            <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 mb-6">
+              <Sparkles className="w-4 h-4 text-white" />
+              <span className="text-sm font-medium text-white">Welcome Back</span>
+            </div>
+            
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
+              Sign In
+            </h1>
+            <p className="text-blue-100 text-lg">
+              Access your bookmark collection
+            </p>
+          </div>
+
+          {/* Form */}
+          <div className="px-8 py-8">
+            
+            {/* Error Message */}
+            {loginError && (
+              <div className="mb-6 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-2xl p-4 flex items-start gap-3">
+                <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+                <p className="text-red-800 dark:text-red-200 text-sm">{loginError}</p>
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+              
+              {/* Email Field */}
+              <div className="space-y-2">
+                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300">
+                  Email Address
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Mail className="h-5 w-5 text-slate-400" />
+                  </div>
+                  <input
+                    type="email"
+                    {...register('email', {
+                      required: 'Email is required',
+                      pattern: {
+                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                        message: 'Invalid email address'
+                      }
+                    })}
+                    className={`w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-700 border-2 rounded-xl transition-all duration-200 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                      errors.email 
+                        ? 'border-red-300 dark:border-red-600 focus:ring-red-500' 
+                        : 'border-slate-200 dark:border-slate-600 hover:border-blue-300 dark:hover:border-blue-500'
+                    }`}
+                    placeholder="Enter your email"
+                  />
+                </div>
+                {errors.email && (
+                  <p className="text-red-500 text-sm flex items-center gap-1">
+                    <AlertCircle className="w-4 h-4" />
+                    {errors.email.message}
+                  </p>
+                )}
+              </div>
+
+              {/* Password Field */}
+              <div className="space-y-2">
+                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300">
+                  Password
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Lock className="h-5 w-5 text-slate-400" />
+                  </div>
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    {...register('password', {
+                      required: 'Password is required',
+                      minLength: {
+                        value: 6,
+                        message: 'Password must be at least 6 characters'
+                      }
+                    })}
+                    className={`w-full pl-10 pr-12 py-3 bg-slate-50 dark:bg-slate-700 border-2 rounded-xl transition-all duration-200 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                      errors.password 
+                        ? 'border-red-300 dark:border-red-600 focus:ring-red-500' 
+                        : 'border-slate-200 dark:border-slate-600 hover:border-blue-300 dark:hover:border-blue-500'
+                    }`}
+                    placeholder="Enter your password"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+                  >
+                    {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                  </button>
+                </div>
+                {errors.password && (
+                  <p className="text-red-500 text-sm flex items-center gap-1">
+                    <AlertCircle className="w-4 h-4" />
+                    {errors.password.message}
+                  </p>
+                )}
+              </div>
+
+              {/* Forgot Password */}
+              <div className="text-right">
+                <Link 
+                  to="/forgot-password" 
+                  className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 text-sm font-medium transition-colors"
+                >
+                  Forgot your password?
+                </Link>
+              </div>
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="group w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 disabled:from-slate-400 disabled:to-slate-500 text-white font-semibold py-4 px-6 rounded-xl shadow-xl hover:shadow-2xl transform hover:scale-[1.02] disabled:hover:scale-100 disabled:hover:shadow-xl transition-all duration-200 flex items-center justify-center gap-2"
+              >
+                {isSubmitting ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                    Signing In...
+                  </>
+                ) : (
+                  <>
+                    Sign In
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </>
+                )}
+              </button>
+            </form>
+
+            {/* Sign Up Link */}
+            <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-600 text-center">
+              <p className="text-slate-600 dark:text-slate-300">
+                Don't have an account?{' '}
+                <Link 
+                  to="/register" 
+                  className="font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+                >
+                  Sign up for free
+                </Link>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Additional Info */}
+        <div className="mt-8 text-center">
+          <div className="flex items-center justify-center gap-6 text-sm text-slate-500 dark:text-slate-400">
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+              <span>Secure Login</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+              <span>Privacy Protected</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* CSS Animations */}
+      <style jsx>{`
+        @keyframes blob {
+          0% { transform: translate(0px, 0px) scale(1); }
+          33% { transform: translate(30px, -50px) scale(1.1); }
+          66% { transform: translate(-20px, 20px) scale(0.9); }
+          100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animate-blob {
+          animation: blob 7s infinite;
+        }
+        .animation-delay-2000 {
+          animation-delay: 2s;
+        }
+        .animation-delay-4000 {
+          animation-delay: 4s;
+        }
+      `}</style>
+    </div>
+  );
+};
+
+export default Login;
