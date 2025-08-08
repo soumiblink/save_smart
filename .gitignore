@@ -1,0 +1,75 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs
+*.log
+log/
+debug.log
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Build output
+dist/
+build/
+.out/
+.next/
+.cache/
+temp/
+tmp/
+.vscode/
+
+# Dependency directories
+bower_components/
+
+# Testing
+coverage/
+*.lcov
+
+# IDEs and editors
+.idea/
+*.sublime-workspace
+*.sublime-project
+*.sw?
+
+# TypeScript
+*.tsbuildinfo
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+venv/
+env/
+ENV/
+*.egg-info/
+pip-log.txt
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Mac and Linux trash
+.Trash-*
+
+# Windows trash
+$RECYCLE.BIN/
+
+# GitHub Codespaces
+.devcontainer/
+
+# Local database
+*.sqlite
+*.db
